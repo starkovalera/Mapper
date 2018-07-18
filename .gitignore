@@ -5,3 +5,4 @@ data/
 *.sqlite
 *.iml
 .tox/
+.pytest_cache/
