@@ -5,6 +5,9 @@ from .exceptions import *
 
 class DjangoModelWriter:
     def __init__(self, model_class, only_write_to=None, not_write_to=None):
+        if only_write_to is not None and not_write_to is not None:
+            raise InvalidWriterConfigurationException("Only one of 'only_write_to', 'not_write_to' parameters must "
+                                                      "be supplied.")
         self._model_class = model_class
         self._fields = self._filter_model_fields(only_write_to, not_write_to)
 
