@@ -1,0 +1,7 @@
+manage.py
+settings.py
+data/
+.idea/
+*.sqlite
+*.iml
+.tox/
