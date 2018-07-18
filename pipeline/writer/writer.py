@@ -22,7 +22,7 @@ class DjangoModelWriter:
         if not_write_to is not None:
             model_fields -= set(not_write_to)
         if not model_fields:
-            raise InvalidWriterConfigurationException()
+            raise InvalidWriterConfigurationException("Resulting field set is empty.")
         return model_fields
 
     def _get_model_fields(self):

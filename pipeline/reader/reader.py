@@ -1,4 +1,5 @@
 import feedparser
+from .exceptions import *
 
 
 class RSSReader:
@@ -29,5 +30,8 @@ class RSSReader:
         if self._etag is not None:
             headers['etag'] = self._etag
         feedset = feedparser.parse(self._source, **headers)
+        if feedset.bozo == 1:
+            raise RSSReaderException(
+                "Feedparser bozo exception. %r" % feedset.bozo_exception)
         self._etag = feedset.get('etag', None)
         return feedset
