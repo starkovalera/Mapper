@@ -9,6 +9,5 @@ setup(name='pipeline',
       install_requires=[
           'feedparser',
           'pytest',
-          'python>=3.6'
       ],
       zip_safe=False)
