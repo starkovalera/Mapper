@@ -1,3 +1,3 @@
 class InvalidRuleConfigurationException(Exception):
-    """"""
+    pass
 

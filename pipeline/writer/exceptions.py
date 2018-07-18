@@ -1,2 +1,2 @@
 class InvalidWriterConfigurationException(Exception):
-    """"""
+    pass

@@ -4,16 +4,25 @@ from .exceptions import *
 
 
 class DjangoModelWriter:
+    """Holds logic of saving data_batch to database."""
+
     def __init__(self, model_class, only_write_to=None, not_write_to=None):
+        """
+        :param model_class: Django model
+        :param only_write_to: Sequence of model field names. If this parameter is supplied then only specified fields
+        will be written.
+        :param not_write_to: Sequence of model field names. If this parameter is supplied then only specified fields
+        will not be written.
+        """
         if only_write_to is not None and not_write_to is not None:
             raise InvalidWriterConfigurationException("Only one of 'only_write_to', 'not_write_to' parameters must "
                                                       "be supplied.")
         self._model_class = model_class
         self._fields = self._filter_model_fields(only_write_to, not_write_to)
 
-    def write(self, data_set):
+    def write(self, data_batch):
         with transaction.atomic():
-            self._model_class.objects.bulk_create([self._model_class(**self._filter_data(item)) for item in data_set])
+            self._model_class.objects.bulk_create([self._model_class(**self._filter_data(item)) for item in data_batch])
 
     def _filter_data(self, data):
         return {field: data[field] for field in self._fields}

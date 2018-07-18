@@ -2,6 +2,22 @@ from .exceptions import *
 
 
 class Rule:
+    """Holds logic of mapping particular fields.
+
+    Mapping logic consists on three cases.
+    Case 1: map existing keys to the new ones without transformation
+    (supplied positional parameters 'keys_from', 'keys_to').
+    Case 2: map existing keys to the same keys with transformation
+    (supplied positional parameters 'keys_from', 'transform_function').
+    Case 3: map existing keys to the new ones with transformation
+    (supplied positional parameters 'keys_from', 'keys_to', 'transform_function').
+
+    Parameters 'keys_from', 'keys_to' must be hashable, if at least one of them is tuple then the transformation
+    process will use values with keys corresponding to tuple elements.
+
+    'keys_from' is required parameter and at least one of the 'keys_to', 'transform_function' must be supplied.
+    """
+
     def __init__(self, keys_from, *args):
         self.keys_from, self.keys_to, self.transform_function = \
             self._resolve_arguments(keys_from, args)
