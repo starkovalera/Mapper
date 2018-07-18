@@ -10,4 +10,5 @@ setup(name='pipeline',
           'feedparser',
           'pytest',
           'python>=3.6.0'
-      ])
+      ],
+      zip_safe=False)
