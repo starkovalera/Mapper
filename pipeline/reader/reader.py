@@ -1,13 +1,13 @@
 import feedparser
-from .exceptions import *
 
 
 class RSSReader:
+
     def __init__(self, source, batch_size=None):
         self._source = source
         self._chunk_size = batch_size
         self._etag = None
-        self._last_item_published = None
+        self._last_item_published = None  #: Last loaded feed published date as 9-tuple
 
     def read(self):
         feedset = self._get_feedset()
@@ -30,8 +30,5 @@ class RSSReader:
         if self._etag is not None:
             headers['etag'] = self._etag
         feedset = feedparser.parse(self._source, **headers)
-        if feedset.bozo == 1:
-            raise RSSReaderException(
-                "Feedparser bozo exception. %r" % feedset.bozo_exception)
         self._etag = feedset.get('etag', None)
         return feedset
