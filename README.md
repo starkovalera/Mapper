@@ -47,7 +47,7 @@ Data after feedparser:
 ### Mapper 
 	mapper = Mapper((  
       ('id', 'guid'),  
-	  ('published_parsed', 'published', lambda x: datetime(*(x[0:6]))),  
+	  ('published_parsed', 'published', lambda x: datetime(*(x[:6]))),  
 	  ('summary', 'content'),  
 	  ('title', lambda x: x.upper())  
 	))
